@@ -74,6 +74,25 @@ def parCheckerG(symbolStr):
                     stk.pop()
     return stk.isEmpty()
 
+# convert from decimal to binary
+def decToBin(val):
+    stk = Stack()
+    # special case 0
+    if val is 0:
+        return 0
+    # divide by 2 algorithm:
+    # loop till div yields 0
+    while val//2:
+        stk.push(val % 2)
+        val = val//2
+    # last digit (MSB)
+    stk.push(val % 2)
+    # pop vals
+    strBin = ''
+    while not stk.isEmpty():
+        strBin += str(stk.pop())
+    return strBin
+
 # main() function
 def main():
     print('learning stacks...')
@@ -89,9 +108,14 @@ def main():
     print(parChecker(')('))
     """
     # test parenthesis (generic)
+    """
     print(parCheckerG('](yo) ] {} ()'))
     print(parCheckerG('(yo) {[(test){0}] )}'))
-    
+    """
+
+    # test decToBin
+    print(decToBin(25))
+    print(decToBin(256))
 
 # call main
 if __name__ == '__main__':
