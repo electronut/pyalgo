@@ -93,6 +93,31 @@ def decToBin(val):
         strBin += str(stk.pop())
     return strBin
 
+# convert from decimal to baseN
+def decToBaseN(val, N):
+    # sanity check
+    if not (N >= 2 and N <= 16):
+        print("N should be between 2 and 16")
+        return ''
+    # special case 0
+    if val is 0:
+        return 0
+    # symbols
+    symbols = "0123456789abcdef"
+    stk = Stack()
+    # divide by N algorithm:
+    # loop till div yields 0
+    while val//N:
+        stk.push(symbols[val % N])
+        val = val//N
+    # last digit (MSB)
+    stk.push(symbols[val % N])
+    # pop vals
+    strBaseN = ''
+    while not stk.isEmpty():
+        strBaseN += str(stk.pop())
+    return strBaseN
+
 # main() function
 def main():
     print('learning stacks...')
@@ -114,8 +139,14 @@ def main():
     """
 
     # test decToBin
+    """
     print(decToBin(25))
     print(decToBin(256))
+    """
+
+    # test decToBaseN
+    print(decToBaseN(511, 16))
+    print(decToBaseN(1234, 16))
 
 # call main
 if __name__ == '__main__':
