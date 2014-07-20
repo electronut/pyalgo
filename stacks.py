@@ -161,6 +161,33 @@ def infixToPostfix(strIn):
     # return output string
     return strOut
 
+# evaluate a Postfix expression
+# Assume:
+# - single digit integer operands 
+# - operators: * / - +
+def evalPostfix(strInput):
+    stk = Stack()
+    for a in strInput.split():
+        if a in '*/+-':
+            right = stk.pop()
+            left = stk.pop()
+            stk.push(evalOp(left, right, a))
+        else:
+            stk.push(a)
+    return stk.pop()
+# evaluate operation
+def evalOp(left, right, op):
+    result = 0
+    if op == '*':
+        result = int(left)*int(right)
+    elif op == '/':
+        result = int(left)/int(right)
+    elif op == '+':
+        result = int(left)+int(right)
+    elif op == '-':
+        result = int(left)-int(right)
+    return str(result)
+
 # main() function
 def main():
     print('learning stacks...')
@@ -194,9 +221,15 @@ def main():
     """
 
     # test infixToPostfix
+    """
     print(infixToPostfix('A-B*C/D+E'))
     print(infixToPostfix('A*B+C*D'))
-        
+    """
+
+    # test evalPostfix
+    print(evalPostfix('1 8 + 3 2 + /'))
+    print(evalPostfix('7 8 * 3 2 - +'))
+
 # call main
 if __name__ == '__main__':
     main()
